@@ -16,7 +16,9 @@ from Parser import Parser
 
 def crawler(crawl_config, seen_url, url_pool):
     option = webdriver.ChromeOptions()
+    prefs = {"profile.managed_default_content_settings.images":2}
     option.add_argument('headless')
+    option.add_experimental_option("prefs", prefs)
 
     # selenium webdriver with chrome
     chrome = webdriver.Chrome(executable_path='./chromedriver.exe', chrome_options=option)
@@ -64,6 +66,7 @@ if __name__ == "__main__":
     crawl_start = timeit.default_timer()
 
     crawl_config = {
+        "insertDB"      : 0,                    # 1 for insert to Elasticsearch, 0 for save record to file         
         "delay_time"    : 8,                    # how long between two request 
         "threads"       : 8,                    # how many threads you want
         "output_dir"    : "./outputdata/",      # directory to save record 
@@ -108,7 +111,7 @@ if __name__ == "__main__":
     threads = [Thread(target=crawler, args=(crawl_config, seen_url, url_pool,)) for i in range(crawl_config['threads'])]
     for t in threads:
         t.daemon = True
-        time.sleep(15)
+        time.sleep(crawl_config['delay_time'])
         t.start()
     # or [t.start() for t in threads] if you prefer the inlines
 
@@ -132,6 +135,8 @@ if __name__ == "__main__":
         for key in seen_url:
             line = key + '\n'
             fp.write(line)
+
+    
         
 
 
