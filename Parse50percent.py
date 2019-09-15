@@ -13,8 +13,8 @@ def Parse50Percent(cur_url, response):
                 "gender":"",
                 "category":"",
                 "url":"",
-                "obj_id":"",
-                "img_url":"",
+                "objID":"",
+                "image_urls":"",
                 "price":"",
                 "store_price":"",
                 "color":"",
@@ -43,9 +43,9 @@ def Parse50Percent(cur_url, response):
             print(item['color']) 
             item['url'] = cur_url
             id = response.xpath('//*[@id="products_intro_content"]/span[contains(@class, "item_no")]/text()').extract_first()
-            item['obj_id'] = id.split(' ')[1]
+            item['objID'] = id.split(' ')[1]
             print(item['obj_id'])
-            item['img_url'] = response.xpath('//*[@id="show-image"]/@src').extract_first() 
+            item['image_urls'] = response.xpath('//*[@id="show-image"]/@src').extract_first() 
             item['colors'] = response.xpath('//*[@id="colors"]/a/@color').extract()
             item['sizes'] = response.xpath('//*[@id="sizes"]/a/text()').extract()
             item['last_updated'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -57,7 +57,7 @@ def Parse50Percent(cur_url, response):
             elif  check_gender.find('MEN') != -1:
                 item['gender'] = '男'
             else :
-                item['gender'] = '男 女'
+                item['gender'] = 'None'
 
             nameSplit = [item['name']]
             #衣服類
@@ -66,7 +66,7 @@ def Parse50Percent(cur_url, response):
                 item['category'] = '衣服'
             #外套類
             elif nameSplit[0].find('外套') >= 0 or nameSplit[0].find('羽絨') >= 0 \
-                or nameSplit[0].find('夾克') >= 0 or nameSplit[0].find('外搭') >= 0  or nameSplit[0].find('大衣'):
+                or nameSplit[0].find('夾克') >= 0 or nameSplit[0].find('外搭') >= 0  or nameSplit[0].find('大衣') >= 0:
                 item['category'] = '外套'
             #內衣類
             elif nameSplit[0].find('內衣') >= 0 or nameSplit[0].find('bra') >= 0 or nameSplit[0].find('細肩帶') >= 0 or nameSplit[0].find('罩') >= 0:
@@ -86,7 +86,7 @@ def Parse50Percent(cur_url, response):
                 item['category'] = '衣服'
             #配件
             else :
-                item['category'] = '配件'
+                item['category'] = '其他'
             
             
             if response.xpath('//*[@id="products_intro_content"]/p[contains(@class, "item_name")]/span[contains(@class, "price")]/span/text()').extract_first():

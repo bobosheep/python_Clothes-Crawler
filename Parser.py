@@ -13,10 +13,10 @@ from ParseNet import ParseNet
 from Parse50percent import Parse50Percent
 from ParseUniqlo import ParseUniqlo
 
-from elasticsearch import Elasticsearch
+#from elasticsearch import Elasticsearch
 
 
-es = Elasticsearch()
+#es = Elasticsearch()
 
 def Parser(cur_url, pageSource, crawl_config):
     soup = BeautifulSoup(pageSource, 'html.parser')
@@ -45,7 +45,7 @@ def Parser(cur_url, pageSource, crawl_config):
 
         if crawl_config['insertDB']:
             id=base64.urlsafe_b64encode(str.encode(item['img_url'])).decode('ascii')
-            es.index(index='clothes', doc_type='clothes', body=item, id=id)
+            #es.index(index='clothes', doc_type='clothes', body=item, id=id)
         else:    
             with open(crawl_config['output_dir'] + crawl_config['output_file'], "a+", encoding='utf8') as fopen:
                 for key in item :

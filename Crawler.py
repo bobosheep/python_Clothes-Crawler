@@ -68,8 +68,8 @@ if __name__ == "__main__":
     crawl_config = {
         "insertDB"      : 0,                    # 1 for insert to Elasticsearch, 0 for save record to file         
         "delay_time"    : 8,                    # how long between two request 
-        "threads"       : 8,                    # how many threads you want
-        "output_dir"    : "./outputdata/",      # directory to save record 
+        "threads"       : 16,                    # how many threads you want
+        "output_dir"    : "D:/crawler_data/clothing",      # directory to save record 
         "output_file"   : "Record1.txt",        # record file name
         "status_dir"    : "./stat/",            # directory to save crawler status
         "Urlpool_file"  : "url_pool",           # file name of saving url pool, read and write in binary
@@ -77,7 +77,7 @@ if __name__ == "__main__":
         "Urllist_file"  : "seen_url_list.txt",  # file to record the seen urls in one time
         "fetch_limit"   : 1000,                 # how many url to fetch in one thread
         "start_url"     :                       # the crawler will start these urls if the two status files are not exist
-            ['http://www.uniqlo.com/tw/'],      
+            ['http://www.lativ.com.tw', 'http://www.50-shop.com'],      
         "allow_domain": {                       # the white list of the crawler
             'www.net-fashion.net':'www.net-fashion.net', 
             'www.lativ.com.tw' : 'www.lativ.com.tw', 

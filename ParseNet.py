@@ -14,8 +14,8 @@ def ParseNet(cur_url, response):
                 "gender":"",
                 "category":"",
                 "url":"",
-                "obj_id":"",
-                "img_url":"",
+                "objID":"",
+                "image_urls":"",
                 "price":"",
                 "store_price":"",
                 "color":"",
@@ -40,8 +40,8 @@ def ParseNet(cur_url, response):
             print(item['name'])
             print(item['color']) 
             item['url'] = cur_url
-            item['obj_id'] = response.xpath('//*[contains(@class, "product_detail_Right_numberL")]/span/text()').extract_first()
-            item['img_url'] = response.xpath('//*[@id="PRODUCT_IMAGE_MAIN"]/@src').extract_first() 
+            item['objID'] = response.xpath('//*[contains(@class, "product_detail_Right_numberL")]/span/text()').extract_first()
+            item['image_urls'] = response.xpath('//*[@id="PRODUCT_IMAGE_MAIN"]/@src').extract_first() 
             colors = response.xpath('//*[contains(@class, "product_color")]/div/div/text()').extract()
             tmparr = []
             for i in colors:
@@ -66,7 +66,7 @@ def ParseNet(cur_url, response):
                 or nameSplit[0].find('背心') >= 0 or nameSplit[0].find('洋裝') >= 0:
                 item['category'] = '衣服'
             #外套類
-            elif nameSplit[0].find('外套') >= 0 or nameSplit[0].find('羽絨') >= 0 or nameSplit[0].find('夾克') >= 0 or nameSplit[0].find('大衣'):
+            elif nameSplit[0].find('外套') >= 0 or nameSplit[0].find('羽絨') >= 0 or nameSplit[0].find('夾克') >= 0 or nameSplit[0].find('大衣') >= 0:
                 item['category'] = '外套'
             #內衣類
             elif nameSplit[0].find('內衣') >= 0 or nameSplit[0].find('bra') >= 0 or nameSplit[0].find('細肩帶') >= 0 or nameSplit[0].find('罩') >= 0:

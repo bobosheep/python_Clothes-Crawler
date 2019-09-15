@@ -14,8 +14,8 @@ def ParseLativ(cur_url, response):
                 "gender":"",
                 "category":"",
                 "url":"",
-                "obj_id":"",
-                "img_url":"",
+                "objID":"",
+                "image_urls":"",
                 "price":"",
                 "store_price":"",
                 "color":"",
@@ -43,8 +43,8 @@ def ParseLativ(cur_url, response):
             print(item['name'])
             print(item['color']) 
             item['url'] = cur_url
-            item['obj_id'] = response.xpath('//*[@id="isn"]/text()').extract_first()
-            item['img_url'] = response.xpath('//*[@id="productImg"]/@src').extract_first() 
+            item['objID'] = response.xpath('//*[@id="isn"]/text()').extract_first()
+            item['image_urls'] = response.xpath('//*[@id="productImg"]/@src').extract_first() 
             item['colors'] = response.xpath('//*[@id="exhibit"]/div[2]/div[3]/div[2]/div[3]/a/img/@title').extract()
             item['sizes'] = response.xpath('//*[@id="sizelist"]/a/text()').extract()
             item['last_updated'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -55,14 +55,14 @@ def ParseLativ(cur_url, response):
             elif name.find('男') > 0:
                 item['gender'] = '男'
             else :
-                item['gender'] = '童'
+                item['gender'] = '其他'
 
             #衣服類
             if  nameSplit[0].find('衫') >= 0  \
                 or nameSplit[0].find('背心') >= 0 or nameSplit[0].find('洋裝') >= 0:
                 item['category'] = '衣服'
             #外套類
-            elif nameSplit[0].find('外套') >= 0 or nameSplit[0].find('羽絨') >= 0 or nameSplit[0].find('夾克') >= 0 or nameSplit[0].find('大衣'):
+            elif nameSplit[0].find('外套') >= 0 or nameSplit[0].find('羽絨') >= 0 or nameSplit[0].find('夾克') >= 0 or nameSplit[0].find('大衣') >= 0:
                 item['category'] = '外套'
             #內衣類
             elif nameSplit[0].find('內衣') >= 0 or nameSplit[0].find('bra') >= 0 or nameSplit[0].find('細肩帶') >= 0 or nameSplit[0].find('罩') >= 0:
@@ -81,7 +81,7 @@ def ParseLativ(cur_url, response):
                 item['category'] = '衣服'
             #配件
             else :
-                item['category'] = '配件'
+                item['category'] = '其他'
             
             
             if response.xpath('//*[@id="store_price"]/text()').extract_first():
