@@ -1,5 +1,5 @@
-__pycache__/
-outputdata/
-InsertToDB/
-stat/
+__pycache__/*
+outputdata/*
+InsertToDB/*
+stat/*
 debug.log

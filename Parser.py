@@ -4,6 +4,7 @@ import queue
 import datetime
 import pickle
 import base64
+import requests
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -44,9 +45,14 @@ def Parser(cur_url, pageSource, crawl_config):
     if item['name'] != [] and item['name'] is not None and item['name'] is not '':
 
         if crawl_config['insertDB']:
-            id=base64.urlsafe_b64encode(str.encode(item['img_url'])).decode('ascii')
+            id=base64.urlsafe_b64encode(str.encode(item['image_urls'])).decode('ascii')
             #es.index(index='clothes', doc_type='clothes', body=item, id=id)
         else:    
+            
+            img_data = requests.get(item['image_urls']).content
+            with open(crawl_config['output_dir'] + 'images/' + item['site'] + '_' + item['objID'] + '.jpg', 'wb') as handler:
+                handler.write(img_data)
+
             with open(crawl_config['output_dir'] + crawl_config['output_file'], "a+", encoding='utf8') as fopen:
                 for key in item :
                     line = '@' + key + ':' + str(item[key]) + '\n'

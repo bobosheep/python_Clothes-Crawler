@@ -44,7 +44,6 @@ def Parse50Percent(cur_url, response):
             item['url'] = cur_url
             id = response.xpath('//*[@id="products_intro_content"]/span[contains(@class, "item_no")]/text()').extract_first()
             item['objID'] = id.split(' ')[1]
-            print(item['obj_id'])
             item['image_urls'] = response.xpath('//*[@id="show-image"]/@src').extract_first() 
             item['colors'] = response.xpath('//*[@id="colors"]/a/@color').extract()
             item['sizes'] = response.xpath('//*[@id="sizes"]/a/text()').extract()
